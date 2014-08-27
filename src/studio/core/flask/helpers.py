@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import os
 import json
+import uuid
 import pkgutil
 from flask import url_for, g, current_app as app
 
@@ -61,3 +62,7 @@ def versioning(filename, appname=None, endpoint=None):
 
     filename = os.path.join(dirname, basename)
     return url_for(endpoint, filename=filename)
+
+
+def gen_uuid():
+    return uuid.uuid4().hex
