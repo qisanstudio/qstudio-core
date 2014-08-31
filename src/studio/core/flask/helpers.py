@@ -9,6 +9,7 @@ from flask import url_for, g, current_app as app
 
 
 def versioning(filename, appname=None, endpoint=None):
+    return url_for('static', filename=filename)
     if not endpoint:
         endpoint = 'static'
     if appname and ':' not in endpoint:
