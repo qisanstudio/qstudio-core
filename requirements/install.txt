@@ -31,3 +31,4 @@ devpi==2.0.0
 psycogreen==1.0
 tzlocal==1.1.1
 pyquery==1.2.9
+cssselect==0.9.1

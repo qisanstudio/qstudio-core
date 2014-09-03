@@ -5,7 +5,6 @@ import time
 import pytz
 import re
 from datetime import datetime, timedelta
-from pyquery import PyQuery
 from flask import current_app as app
 from jinja2 import Markup
 from jinja2 import evalcontextfilter
@@ -108,34 +107,6 @@ def timestamp(value):
 @app.template_filter()
 def to_timestamp(dt):
     return int(time.mktime(dt.timetuple()))
-
-
-def _close_video(pq_html):
-    for embed in pq_html(b'embed'):
-        pq_embed = PyQuery(embed)
-        pq_embed.after('<p>该视频暂时无法显示</p>').remove()
-    for iframe in pq_html(b'iframe'):
-        pq_iframe = PyQuery(iframe)
-        pq_iframe.after('<p>该视频暂时无法显示</p>').remove()
-
-
-def _video_filter(pq_html, width=480):
-    for iframe in pq_html(b'iframe'):
-        pq_iframe = PyQuery(iframe)
-        h = int(pq_iframe.attr(b'height') or 0)
-        w = int(pq_iframe.attr(b'width') or 0)
-        if w:
-            pq_iframe.attr(b'width', unicode(width))
-        if w and h:  # prevent ZeroDivisionError
-            pq_iframe.attr(b'height', unicode((width*h)/w))
-    for embed in pq_html(b'embed'):
-        pq_embed = PyQuery(embed)
-        h = int(pq_embed.attr(b'height') or 0)
-        w = int(pq_embed.attr(b'width') or 0)
-        if w:
-            pq_embed.attr(b'width', unicode(width))
-        if w and h:  # prevent ZeroDivisionError
-            pq_embed.attr(b'height', unicode((width*h)/w))
 
 
 @app.template_filter()
