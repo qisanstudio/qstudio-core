@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 import os
 from flask import Flask 
-from .helpers import versioning
 
 
 __all__ = ['StudioFlask']
@@ -19,4 +18,11 @@ class StudioFlask(Flask):
 
 		# Function to easily find your assets
 		# In your template use <link rel=stylesheet href="{{ static('filename') }}">
-		self.jinja_env.globals['versioning'] = versioning
+
+		with self.app.context():
+			from . import filters  # noqa pyflakes:ignore
+			from . import helpers
+
+			self.jinja_env.globals.update(
+					versioning=helpers.versioning,
+				)
