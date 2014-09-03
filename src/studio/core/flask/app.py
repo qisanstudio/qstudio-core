@@ -19,7 +19,7 @@ class StudioFlask(Flask):
 		# Function to easily find your assets
 		# In your template use <link rel=stylesheet href="{{ static('filename') }}">
 
-		with self.app.context():
+		with self.app_context():
 			from . import filters  # noqa pyflakes:ignore
 			from . import helpers
 
