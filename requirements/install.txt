@@ -33,3 +33,6 @@ tzlocal==1.1.1
 pyquery==1.2.9
 cssselect==0.9.1
 iptools==0.6.1
+Flask-And-Redis==0.5
+redis==2.10.3
+anyjson==0.3.3

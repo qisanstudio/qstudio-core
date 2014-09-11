@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+
+import os
+
+ENABLE_BABEL = True
+BABEL_DEFAULT_LOCALE = 'zh_CN.UTF-8'
+BABEL_DEFAULT_TIMEZONE = 'UTC+8'
+
+UWSGI_VIRTUALENV  = os.environ['VIRTUAL_ENV']
+UWSGI_PROCESSES = 1
+UWSGI_BUFFER_SIZE = 32768
+UWSGI_POST_BUFFERING = 4096
+UWSGI_GEVENT = 100
+UWSGI_MASTER = True
+UWSGI_SO_KEEPALIVE = True
+UWSGI_LISTEN = 100
+UWSGI_IMPORT = 'studio.core.monkey'  # 应用启动前的 monkey patch
+
+
+SECRET_KEY = '\x94\xabM\x8c\xc8\r_x#\x06\x8ac\x99\xf5/\x83\xe7\xce\x04\x80XVs\xbe'
