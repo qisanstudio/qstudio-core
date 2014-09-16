@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 """获取用户元数据"""
 
+import requests
+from urlparse import ParseResult
 from flask import g
 from flask import current_app as app
 from werkzeug import LocalProxy
@@ -10,9 +12,26 @@ from werkzeug import LocalProxy
 from studio.core.engines import shared_redis
 from studio.core.contribs.encoding import smart_unicode
 
-#from express.models.account import AccountModel
-
 __all__ = ['preload_user_meta', 'user_meta']
+
+
+def url_build(scheme='http', netloc='', path='',
+              params='', query='', fragment=''):
+    with app.app_context():
+        netloc=app.config['SERVER_NAME']
+    u = ParseResult(scheme=scheme, netloc=netloc, path=path,
+                    params=params, query=query, fragment=fragment)
+
+    return u.geturl()
+
+
+def _get_user_resource(uids):
+    result = {}
+    for uid in uids:
+        url = url_build(path='/apis/account/', query='uid=%s' % uid)
+        result[uid] = requests.get(url).json()
+
+    return result
 
 
 def _get_user_metadata(*uids):
@@ -37,7 +56,7 @@ def _get_user_metadata(*uids):
         if hasattr(app, 'get_user_metadata'):
             others = app.get_user_metadata(dirty)
         else:
-            others = {}#AccountModel.get_metas(uids=dirty)
+            others = _get_user_resource(dirty)
 
     ret = {}
     for uid, one in zip(uids, result):

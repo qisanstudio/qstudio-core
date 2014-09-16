@@ -36,3 +36,4 @@ iptools==0.6.1
 Flask-And-Redis==0.5
 redis==2.10.3
 anyjson==0.3.3
+Flask-RESTful==0.2.12

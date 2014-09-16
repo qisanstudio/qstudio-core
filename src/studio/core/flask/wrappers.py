@@ -29,9 +29,4 @@ class StudioRequest(Request):
 
     @locked_cached_property
     def current_user(self):
-        u = user_meta(self.uid)
-        if self.uid == 'a378559a1f1a4144b3111251d2dc1e6f':
-            u['privileges'] = ['account', 'address', 'bill', 'email',
-                                'item', 'logistics', 'privilege', 'role',
-                                'role_privilege']
-        return u
+        return user_meta(self.uid)
