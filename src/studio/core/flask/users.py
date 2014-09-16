@@ -56,7 +56,7 @@ def _get_user_metadata(*uids):
         if hasattr(app, 'get_user_metadata'):
             others = app.get_user_metadata(dirty)
         else:
-            others = _get_user_resource(dirty)
+            others = {}#_get_user_resource(dirty)
 
     ret = {}
     for uid, one in zip(uids, result):
