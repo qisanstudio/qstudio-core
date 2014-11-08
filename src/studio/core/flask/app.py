@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import os
 from flask import Flask
+from random import choice
 from studio.core.engines import redis
 from studio.core.config import common_config_dir
 from .wrappers import StudioRequest
@@ -45,4 +46,13 @@ class StudioFlask(Flask):
 
             self.jinja_env.globals.update(
                 versioning=helpers.versioning,
+                random_choice=choice,
             )
+
+        @self.errorhandler(404)
+        def page_not_found(error):
+            return '404'
+        
+        @self.errorhandler(500)
+        def internal_server_error(error):
+            return '500'
