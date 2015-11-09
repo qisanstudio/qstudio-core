@@ -21,7 +21,7 @@ class EnginesModule(types.ModuleType):
     @helpers.locked_cached_property
     def db(self):
         from werkzeug.local import LocalProxy
-        from flask_sqlalchemy import SQLAlchemy
+        from studio.core.sqla import SQLAlchemy
 
         def _find_db():
             from flask import current_app
